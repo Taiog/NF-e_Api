@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.portalfiscal.inf.br/nfe"
+           xmlns="http://www.portalfiscal.inf.br/nfe"
+           elementFormDefault="qualified">
+
+  <xs:element name="NFe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="infNFe">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ide" type="IdeType"/>
+              <xs:element name="emit" type="EmitType"/>
+              <xs:element name="dest" type="DestType"/>
+              <xs:element name="det" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="prod" type="ProdType"/>
+                    <xs:element name="imposto" type="ImpostoType"/>
+                  </xs:sequence>
+                  <xs:attribute name="nItem" type="xs:string" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="total" type="TotalType"/>
+              <xs:element name="transporta" type="TransportaType"/>
+              <xs:element name="infAdic" type="InfAdicType"/>
+            </xs:sequence>
+            <xs:attribute name="Id" type="xs:string" use="required"/>
+            <xs:attribute name="versao" type="xs:string" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- ide -->
+  <xs:complexType name="IdeType">
+    <xs:sequence>
+      <xs:element name="cUF" type="xs:string"/>
+      <xs:element name="natOp" type="xs:string"/>
+      <xs:element name="mod" type="xs:string"/>
+      <xs:element name="serie" type="xs:string"/>
+      <xs:element name="nNF" type="xs:string"/>
+      <xs:element name="dhEmi" type="xs:dateTime"/>
+      <xs:element name="tpNF" type="xs:string"/>
+      <xs:element name="idDest" type="xs:string"/>
+      <xs:element name="cMunFG" type="xs:string"/>
+      <xs:element name="tpImp" type="xs:string"/>
+      <xs:element name="tpEmis" type="xs:string"/>
+      <xs:element name="cDV" type="xs:string"/>
+      <xs:element name="tpAmb" type="xs:string"/>
+      <xs:element name="finNFe" type="xs:string"/>
+      <xs:element name="indFinal" type="xs:string"/>
+      <xs:element name="indPres" type="xs:string"/>
+      <xs:element name="procEmi" type="xs:string"/>
+      <xs:element name="verProc" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- emit -->
+  <xs:complexType name="EmitType">
+    <xs:sequence>
+      <xs:element name="CNPJ" type="xs:string"/>
+      <xs:element name="xNome" type="xs:string"/>
+      <xs:element name="enderEmit" type="EnderecoType"/>
+      <xs:element name="IE" type="xs:string"/>
+      <xs:element name="CRT" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- dest -->
+  <xs:complexType name="DestType">
+    <xs:sequence>
+      <xs:element name="CPF" type="xs:string"/>
+      <xs:element name="xNome" type="xs:string"/>
+      <xs:element name="enderDest" type="EnderecoType"/>
+      <xs:element name="indIEDest" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- endereco -->
+  <xs:complexType name="EnderecoType">
+    <xs:sequence>
+      <xs:element name="xLgr" type="xs:string"/>
+      <xs:element name="nro" type="xs:string"/>
+      <xs:element name="xBairro" type="xs:string"/>
+      <xs:element name="cMun" type="xs:string"/>
+      <xs:element name="xMun" type="xs:string"/>
+      <xs:element name="UF" type="xs:string"/>
+      <xs:element name="CEP" type="xs:string"/>
+      <xs:element name="cPais" type="xs:string"/>
+      <xs:element name="xPais" type="xs:string"/>
+      <xs:element name="fone" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- produto -->
+  <xs:complexType name="ProdType">
+    <xs:sequence>
+      <xs:element name="cProd" type="xs:string"/>
+      <xs:element name="xProd" type="xs:string"/>
+      <xs:element name="NCM" type="xs:string"/>
+      <xs:element name="CFOP" type="xs:string"/>
+      <xs:element name="uCom" type="xs:string"/>
+      <xs:element name="qCom" type="xs:decimal"/>
+      <xs:element name="vUnCom" type="xs:decimal"/>
+      <xs:element name="vProd" type="xs:decimal"/>
+      <xs:element name="uTrib" type="xs:string"/>
+      <xs:element name="qTrib" type="xs:decimal"/>
+      <xs:element name="vUnTrib" type="xs:decimal"/>
+      <xs:element name="indTot" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- imposto -->
+  <xs:complexType name="ImpostoType">
+    <xs:sequence>
+      <xs:element name="ICMS">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ICMS00">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="orig" type="xs:string"/>
+                  <xs:element name="CST" type="xs:string"/>
+                  <xs:element name="modBC" type="xs:string"/>
+                  <xs:element name="vBC" type="xs:decimal"/>
+                  <xs:element name="pICMS" type="xs:decimal"/>
+                  <xs:element name="vICMS" type="xs:decimal"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="PIS">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="PISAliq">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="CST" type="xs:string"/>
+                  <xs:element name="vBC" type="xs:decimal"/>
+                  <xs:element name="pPIS" type="xs:decimal"/>
+                  <xs:element name="vPIS" type="xs:decimal"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="COFINS">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="COFINSAliq">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="CST" type="xs:string"/>
+                  <xs:element name="vBC" type="xs:decimal"/>
+                  <xs:element name="pCOFINS" type="xs:decimal"/>
+                  <xs:element name="vCOFINS" type="xs:decimal"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- total -->
+  <xs:complexType name="TotalType">
+    <xs:sequence>
+      <xs:element name="ICMSTot">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="vBC" type="xs:decimal"/>
+            <xs:element name="vICMS" type="xs:decimal"/>
+            <xs:element name="vProd" type="xs:decimal"/>
+            <xs:element name="vPIS" type="xs:decimal"/>
+            <xs:element name="vCOFINS" type="xs:decimal"/>
+            <xs:element name="vNF" type="xs:decimal"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- transporte -->
+  <xs:complexType name="TransportaType">
+    <xs:sequence>
+      <xs:element name="modFrete" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- infAdic -->
+  <xs:complexType name="InfAdicType">
+    <xs:sequence>
+      <xs:element name="infCpl" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

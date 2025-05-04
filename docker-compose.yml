@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_nfe
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: nfe_user
+      POSTGRES_PASSWORD: nfe_pass
+      POSTGRES_DB: nfe_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_nfe
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@nfe.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  postgres_data:
+  pgadmin_data:

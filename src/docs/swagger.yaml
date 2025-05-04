@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: NF-e API
+  version: 1.0.0
+  description: API para recebimento e geração de documentos fiscais eletrônicos (NF-e).
+
+servers:
+  - url: http://localhost:3000
+    description: Ambiente local
+
+paths:
+  paths:
+  /nfe/upload:
+    post:
+      summary: Faz upload de um XML de NF-e
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Arquivo XML da NF-e
+      responses:
+        '200':
+          description: XML processado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  parsed:
+                    type: object
+        '400':
+          description: Nenhum arquivo enviado
+        '500':
+          description: Erro ao processar o XML
+
+  /nfe/generate:
+    post:
+      summary: Gera um XML de NF-e a partir de um JSON
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - emitente
+                - destinatario
+                - produtos
+              properties:
+                emitente:
+                  type: object
+                  properties:
+                    cnpj:
+                      type: string
+                    nome:
+                      type: string
+                destinatario:
+                  type: object
+                  properties:
+                    cnpj:
+                      type: string
+                    nome:
+                      type: string
+                produtos:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      codigo:
+                        type: string
+                      descricao:
+                        type: string
+                      quantidade:
+                        type: number
+                      valorUnitario:
+                        type: number
+      responses:
+        '200':
+          description: XML gerado com sucesso
+          content:
+            application/xml:
+              schema:
+                type: string
+                example: "<NFe>...</NFe>"
+        '400':
+          description: JSON inválido
+        '500':
+          description: Erro ao gerar XML
+
+  /nfe:
+    get:
+      summary: Listar todas as NF-e recebidas
+      responses:
+        '200':
+          description: Lista de NF-e
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NFe'
+
+  /nfe/{id}:
+    get:
+      summary: Buscar NF-e por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: NF-e encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NFe'
+        '404':
+          description: NF-e não encontrada
+
+components:
+  schemas:
+    NFe:
+      type: object
+      properties:
+        id:
+          type: string
+        emitenteCNPJ:
+          type: string
+        numeroNota:
+          type: string
+        dataEmissao:
+          type: string
+          format: date-time
+        xmlUrl:
+          type: string
+
+    NFeInput:
+      type: object
+      properties:
+        emitente:
+          type: object
+          properties:
+            cnpj:
+              type: string
+            razaoSocial:
+              type: string
+        destinatario:
+          type: object
+          properties:
+            cnpj:
+              type: string
+            razaoSocial:
+              type: string
+        produtos:
+          type: array
+          items:
+            type: object
+            properties:
+              descricao:
+                type: string
+              quantidade:
+                type: number
+              valorUnitario:
+                type: number
