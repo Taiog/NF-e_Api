@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { buildXmlFromJson } from '../utils/xml';
 import { validateXML } from '../utils/xmlValidator';
+import { processNFeUpload } from '../services/nfe.service';
 
 export const uploadNFe = async (req: Request, res: Response) => {
   const file = req.file;
@@ -11,7 +12,8 @@ export const uploadNFe = async (req: Request, res: Response) => {
 
     try {
     const parsed = await validateXML(file.buffer.toString());
-    res.status(200).json({ message: 'XML recebido com sucesso.', parsed });
+
+    await processNFeUpload(file.buffer.toString(), file) 
   } catch (err) {
     console.error('Erro ao ler XML:', err);
     res.status(500).json({ error: 'Falha ao processar XML.', detail: err });

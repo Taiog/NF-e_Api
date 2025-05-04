@@ -4,7 +4,7 @@ import path from 'path';
 
 export async function validateXML(xml: string): Promise<{ valid: boolean; errors?: string[] }> {
   try {
-    const xsdPath = path.resolve(__dirname, '../../public/schemas/NFe_v4.00.xsd');
+    const xsdPath = path.resolve(__dirname, '../../public/schemas/teste.xsd');
     const xsdContent = fs.readFileSync(xsdPath, 'utf8');
 
     const xmlDoc = libxmljs.parseXml(xml);

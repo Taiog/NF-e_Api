@@ -1,5 +1,13 @@
 // types/nfe.ts
 
+export interface NFeDB {
+  chave: string
+  emitente: string
+  destinatario: string
+  dataEmissao: Date
+  valorTotal: number
+  xml: string
+}
 export interface NFeInput {
     NFe: {
       $?: {
