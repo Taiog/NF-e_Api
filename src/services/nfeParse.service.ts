@@ -1,26 +1,26 @@
-import { parseXml } from 'libxmljs2';
-import { NFeDB } from '../types/nfe';
+import { parseXml } from "libxmljs2";
+import { NFeDB } from "../types/nfe";
 
-export function extractNFeData(xmlString: string): Omit<NFeDB, 'xml'> {
+export function extractNFeData(xmlString: string): Omit<NFeDB, "xml"> {
   const xmlDoc = parseXml(xmlString);
 
-  const ns = { nfe: 'http://www.portalfiscal.inf.br/nfe' };
+  const ns = { nfe: "http://www.portalfiscal.inf.br/nfe" };
 
   const getText = (path: string) => {
     const fullPath = `//nfe:infNFe/${path
-        .split('/')
-        .map(segment => `nfe:${segment}`)
-        .join('/')}`;
+      .split("/")
+      .map((segment) => `nfe:${segment}`)
+      .join("/")}`;
     const node = xmlDoc.get(fullPath, ns);
     const text = node?.toString();
     const content = text?.match(/>([^<]+)</)?.[1];
-     return content
-  }
+    return content;
+  };
 
   return {
     chave: getText("ide/nNF")!,
     emitente: getText("emit/CNPJ")!,
-    destinatario: getText("dest/CPF")!,
+    destinatario: getText("dest/CPF") || getText("dest/CNPJ")!,
     valorTotal: parseFloat(getText("total/ICMSTot/vNF")!),
     dataEmissao: new Date(getText("ide/dhEmi")!),
   };

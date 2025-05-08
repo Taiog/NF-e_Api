@@ -9,7 +9,6 @@ servers:
     description: Ambiente local
 
 paths:
-  paths:
   /nfe/upload:
     post:
       summary: Faz upload de um XML de NF-e
@@ -25,7 +24,7 @@ paths:
                   format: binary
                   description: Arquivo XML da NF-e
       responses:
-        '200':
+        "200":
           description: XML processado com sucesso
           content:
             application/json:
@@ -36,9 +35,9 @@ paths:
                     type: string
                   parsed:
                     type: object
-        '400':
+        "400":
           description: Nenhum arquivo enviado
-        '500':
+        "500":
           description: Erro ao processar o XML
 
   /nfe/generate:
@@ -83,30 +82,30 @@ paths:
                       valorUnitario:
                         type: number
       responses:
-        '200':
+        "200":
           description: XML gerado com sucesso
           content:
             application/xml:
               schema:
                 type: string
                 example: "<NFe>...</NFe>"
-        '400':
+        "400":
           description: JSON inválido
-        '500':
+        "500":
           description: Erro ao gerar XML
 
   /nfe:
     get:
       summary: Listar todas as NF-e recebidas
       responses:
-        '200':
+        "200":
           description: Lista de NF-e
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/NFe'
+                  $ref: "#/components/schemas/NFe"
 
   /nfe/{id}:
     get:
@@ -118,13 +117,13 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: NF-e encontrada
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NFe'
-        '404':
+                $ref: "#/components/schemas/NFe"
+        "404":
           description: NF-e não encontrada
 
 components:
