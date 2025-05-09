@@ -1,8 +1,7 @@
+import { NFe, Prisma } from "@prisma/client";
 import prisma from "../prisma/client";
-import { NFeDB } from "../types/nfe";
-import { NFe } from "@prisma/client";
 
-export async function saveNFe(data: NFeDB): Promise<NFe> {
+export async function saveNFe(data: Prisma.NFeCreateInput): Promise<NFe> {
   return prisma.nFe.create({ data });
 }
 
@@ -14,6 +13,12 @@ export function getAllNFes() {
 
 export function getNFeById(id: string) {
   return prisma.nFe.findUnique({
+    where: { id },
+  });
+}
+
+export function deleteNFeById(id: string) {
+  return prisma.nFe.delete({
     where: { id },
   });
 }

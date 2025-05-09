@@ -17,11 +17,9 @@ export function formatErrorMessage(rawError: string) {
     ["cvc-facet-valid", "Valor fora dos limites definidos."],
   ];
 
-  // Identifica mensagem amigável
   const mapping = errorMappings.find(([code]) => rawError.includes(code));
   const userMessage = mapping?.[1] ?? "Erro de validação desconhecido.";
 
-  // Extrai linha (ex: (9:21) → 9)
   const lineMatch = rawError.match(/\((\d+):\d+\)/);
   const lineNumber = lineMatch ? parseInt(lineMatch[1], 10) : undefined;
 

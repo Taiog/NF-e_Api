@@ -1,7 +1,7 @@
+import { Prisma } from "@prisma/client";
 import { parseXml } from "libxmljs2";
-import { NFeDB } from "../types/nfe";
 
-export function extractNFeData(xmlString: string): Omit<NFeDB, "xml"> {
+export function extractNFeData(xmlString: string): Omit<Prisma.NFeCreateInput, "xml"> {
   const xmlDoc = parseXml(xmlString);
 
   const ns = { nfe: "http://www.portalfiscal.inf.br/nfe" };

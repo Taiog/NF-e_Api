@@ -1,11 +1,3 @@
-export interface NFeDB {
-  chave: string;
-  emitente: string;
-  destinatario: string;
-  dataEmissao: Date;
-  valorTotal: number;
-  xml: string;
-}
 export interface NFeInput {
   NFe: {
     $?: {
@@ -15,7 +7,7 @@ export interface NFeInput {
   };
 }
 
-export interface InfNFe {
+interface InfNFe {
   $: {
     Id: string;
     versao: string;
@@ -29,7 +21,7 @@ export interface InfNFe {
   infAdic?: InformacoesAdicionais;
 }
 
-export interface Ide {
+interface Ide {
   cUF: string;
   natOp: string;
   mod: string;
@@ -50,7 +42,7 @@ export interface Ide {
   verProc: string;
 }
 
-export interface Emitente {
+interface Emitente {
   CNPJ: string;
   xNome: string;
   enderEmit: {
@@ -69,7 +61,7 @@ export interface Emitente {
   CRT: string;
 }
 
-export interface Destinatario {
+interface Destinatario {
   CNPJ?: string;
   CPF?: string;
   xNome: string;
@@ -89,7 +81,7 @@ export interface Destinatario {
   IE?: string;
 }
 
-export interface DetalheProduto {
+interface DetalheProduto {
   $: { nItem: string };
   prod: {
     cProd: string;
@@ -112,7 +104,7 @@ export interface DetalheProduto {
   };
 }
 
-export interface Total {
+interface Total {
   ICMSTot: {
     vBC: string;
     vICMS: string;
@@ -133,10 +125,10 @@ export interface Total {
   };
 }
 
-export interface Transporte {
+interface Transporte {
   modFrete: string;
 }
 
-export interface InformacoesAdicionais {
+interface InformacoesAdicionais {
   infCpl: string;
 }

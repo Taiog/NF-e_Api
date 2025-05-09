@@ -16,9 +16,9 @@ interface UploadParams {
   ContentType: string;
 }
 
-export async function uploadToS3(params: UploadParams): Promise<string> {
+export async function uploadToS3(params: UploadParams): Promise<void> {
   const command = new PutObjectCommand(params);
   await s3.send(command);
 
-  return `https://${params.Bucket}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`;
+  return;
 }
