@@ -11,7 +11,7 @@ servers:
 paths:
   /nfe/:
     post:
-      summary: Faz upload de um XML de NF-e
+      summary: Faz a validação de um XML de NF-e
       requestBody:
         required: true
         content:
@@ -126,28 +126,27 @@ paths:
         "404":
           description: NF-e não encontrada
 
-  /nfe/{id}:
     delete:
-      summary: Deletar NF-e por id
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          description: Id da nota fiscal
-      responses:
-        "200":
-          description: Nota fiscal deletada com sucesso
-          content:
-            application/json:
+          summary: Deletar NF-e por id
+          parameters:
+            - in: path
+              name: id
+              required: true
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        "404":
-          description: Nota fiscal não encontrada
+                type: string
+              description: Id da nota fiscal
+          responses:
+            "200":
+              description: Nota fiscal deletada com sucesso
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+            "404":
+              description: Nota fiscal não encontrada
 
 components:
   schemas:
