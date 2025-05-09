@@ -24,7 +24,6 @@
     "multer": "^1.4.5-lts.2",
     "swagger-ui-express": "^5.0.1",
     "xml2js": "^0.6.2",
-    "xsd-assembler": "^0.0.3",
     "xsd-schema-validator": "^0.11.0",
     "yamljs": "^0.3.0"
   },
